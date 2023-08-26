@@ -1,0 +1,33 @@
+<div>
+    <h2>Conversão de Moedas</h2>
+    
+    <label for="moedaOrigem">Moeda de Origem:</label>
+    <select id="moedaOrigem" [(ngModel)]="moedaOrigem">
+      <option *ngFor="let moeda of moedas | keyvalue" [value]="moeda.key">{{ moeda.key }} - {{ moeda.value.description }}</option>
+    </select>
+    
+    <label for="moedaDestino">Moeda de Destino:</label>
+    <select id="moedaDestino" [(ngModel)]="moedaDestino">
+      <option *ngFor="let moeda of moedas | keyvalue" [value]="moeda.key">{{ moeda.key }} - {{ moeda.value.description }}</option>
+    </select>
+    
+    <label for="valor">Valor:</label>
+    <input type="number" id="valor" [(ngModel)]="valor">
+    
+    <button (click)="converter()">Converter</button>
+
+    <!-- Mostrar histórico de conversões -->
+    <div *ngIf="historico.length > 0">
+      <h2>Histórico de Conversões</h2>
+      <div *ngFor="let conversao of historico; let i = index" class="historico-item">
+        <p>Data: {{ conversao.data | date:'dd/MM/yyyy' }} - {{ conversao.data | date:'HH:mm:ss' }}</p>
+        <p>Valor: {{ conversao.valor }}</p>
+        <p>Moeda de Origem: {{ conversao.moedaOrigem }}</p>
+        <p>Moeda Destino: {{ conversao.moedaDestino }}</p>
+        <p>Resultado: {{ conversao.resultado }}</p>
+        <p>Taxa: {{ conversao.taxa }}</p>
+        <button (click)="excluirConversao(i)">Excluir</button>
+      </div>
+    </div>
+  </div>
+  

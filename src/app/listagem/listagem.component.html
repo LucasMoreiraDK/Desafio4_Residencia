@@ -1,0 +1,21 @@
+<div>
+    <h2>Lista de Moedas</h2>
+    
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="simbolo">
+        <th mat-header-cell *matHeaderCellDef>Símbolo</th>
+        <td mat-cell *matCellDef="let moeda">{{ moeda.code }}</td>
+      </ng-container>
+    
+      <ng-container matColumnDef="descricao">
+        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+        <td mat-cell *matCellDef="let moeda">{{ moeda.description }}</td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let moeda; columns: displayedColumns;"></tr>
+    </table>
+    
+    <mat-paginator [length]="dataSource.data.length" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+  

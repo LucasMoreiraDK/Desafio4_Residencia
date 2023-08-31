@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListagemService } from '../service/listagem.service';
 import { MoedasResponse, Moeda } from '../conversao/listagem.model';
 import { HttpClient } from '@angular/common/http';
+import { ConversaoService } from '../service/conversao-service.service'; // Importe o novo serviço
 
 @Component({
   selector: 'app-conversao',
@@ -14,9 +15,13 @@ export class ConversaoComponent implements OnInit {
   moedaDestino: string;
   valor: number;
   resultado: number;
-  historico: any[] = []; // Array para armazenar o histórico
+  historico: any[] = [];
 
-  constructor(private listagemService: ListagemService, private http: HttpClient) {
+  constructor(
+    private listagemService: ListagemService,
+    private http: HttpClient,
+    private conversaoService: ConversaoService // Injete o serviço de conversão
+  ) {
     this.moedas = {};
     this.moedaOrigem = '';
     this.moedaDestino = '';
@@ -37,13 +42,15 @@ export class ConversaoComponent implements OnInit {
 
   converter(): void {
     if (this.moedaOrigem && this.moedaDestino && this.valor) {
-      const url = `https://api.exchangerate.host/convert?from=${this.moedaOrigem}&to=${this.moedaDestino}&amount=${this.valor}`;
-      
-      this.http.get<any>(url).subscribe(
+      if (this.valor <= 0) {
+        alert('O valor de conversão deve ser maior que zero.');
+        return; // Interrompe a função se o valor for igual ou menor que zero
+      }
+  
+      this.conversaoService.converterMoedas(this.moedaOrigem, this.moedaDestino, this.valor).subscribe(
         data => {
           this.resultado = data.result;
-
-          // Adicionar a entrada ao histórico
+  
           this.historico.unshift({
             data: new Date(),
             valor: this.valor,
@@ -59,8 +66,9 @@ export class ConversaoComponent implements OnInit {
       );
     }
   }
+  
 
   excluirConversao(index: number): void {
-    this.historico.splice(index, 1); // Remover a entrada do histórico
+    this.historico.splice(index, 1);
   }
 }

@@ -1,14 +1,14 @@
 <div>
-    <h2>Lista de Moedas</h2>
+    <h2 class="tituloListagem">Lista de Moedas</h2>
     
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="simbolo">
-        <th mat-header-cell *matHeaderCellDef>Símbolo</th>
+        <th mat-header-cell *matHeaderCellDef class="textPaginatorTitulo">Símbolo</th>
         <td mat-cell *matCellDef="let moeda">{{ moeda.code }}</td>
       </ng-container>
     
       <ng-container matColumnDef="descricao">
-        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+        <th mat-header-cell *matHeaderCellDef class="textPaginatorTitulo">Descrição</th>
         <td mat-cell *matCellDef="let moeda">{{ moeda.description }}</td>
       </ng-container>
     

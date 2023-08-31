@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 
@@ -31,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     MatPaginatorModule,
     MatTableModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

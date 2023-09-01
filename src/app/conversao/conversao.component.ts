@@ -69,6 +69,11 @@ export class ConversaoComponent implements OnInit {
   
 
   excluirConversao(index: number): void {
-    this.historico.splice(index, 1);
+    const confirmacao = window.confirm('Deseja realmente excluir do histórico?');
+  
+    if (confirmacao) {
+      this.historico.splice(index, 1);
+    }
   }
+  
 }
